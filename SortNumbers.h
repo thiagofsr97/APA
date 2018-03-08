@@ -13,6 +13,7 @@ private:
     int size;
     int Swap(int, int);
     void PrintError();
+    int StepByStep(int);
 
 
 public:
