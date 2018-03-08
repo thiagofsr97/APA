@@ -16,4 +16,6 @@ Go straight to the root of the project using the terminal and enter the command 
  # Examples of usage
    - ./SortingNumbers -sort -s -r 10 ---> Here you will sort an amount of 10 numbers chosen randomly by using the Selection Sort method.
    - ./SortingNumbers -sort -i -c 20 ---> On the other hand, you will have to choose 20 numbers that will be sorted by the Insertion Sort method.
+   - ./SortingNumbers -sort -i -f < file.txt --> Reading from a file (a .txt file for example), the argument that succeds "<" must be the file path (in the example the file is in the root of the project).   
+   
  
