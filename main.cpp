@@ -9,8 +9,9 @@ void PrintWrong(){
 int main(int argc, char* argv[]) {
     SortNumbers sortNumbers;
     std::string command;
-    if(argc < 5)
+    if(argc < 4) {
         PrintWrong();
+    }
 
     command = argv[1];
     if(command != "-sort")
@@ -20,22 +21,27 @@ int main(int argc, char* argv[]) {
     if(command == "-r"){
         sortNumbers.RandomTable(atoi(argv[4]));
     }
-    else if(command == "-c"){
-        command = argv[4];
-        int size = atoi(command.c_str());
+    else if((command == "-c") || command == "-f") {
         int aux = 0;
+        int size = 0;
+        if(command == "-f"){
+            std::cin >> size;
+        }else{
+            command = argv[4];
+            size = atoi(command.c_str());
+
+        }
         int i = 0;
         int *array = new int[size];
         std::cout << "Choose your " << size << " numbers: \n" << std::endl;
-        while((size--)){
-
+        int count = size;
+        while((count--)){
             std::cin >> aux;
-            std::cout << "Numero: " << aux << std::endl;
             array[i] = aux;
             i++;
 
         }
-        sortNumbers.SetTable(array,atoi(command.c_str()));
+        sortNumbers.SetTable(array,size);
 
     }
 

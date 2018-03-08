@@ -7,6 +7,7 @@
 
 SortNumbers::SortNumbers() {
     size = 0;
+    table = nullptr;
 
 }
 
@@ -87,8 +88,6 @@ int SortNumbers::RandomTable(int size) {
 void SortNumbers::SetTable(int *table, int size) {
     this->table = table;
     this->size = size;
-    std::cout << "Here's your chosen table..." << std::endl;
-    PrintTable();
 }
 
 void SortNumbers::ClearTable() {
