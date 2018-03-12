@@ -50,6 +50,51 @@ int SortNumbers::SelectionSort() {
     return 0;
 }
 
+int SortNumbers::QuickSort(){ // this function will be used as a trigger to the recursive quick sort function
+    if(size == 0){
+        PrintError();
+        return -1;    
+    }
+    Quick(0,size -1);
+}
+void SortNumbers::Quick(int inf, int sup){
+    if(!(inf < sup)) // the partition is already sorted, nothing must be done
+        return;
+    int pivot = Partition(inf,sup);
+    Quick(inf,pivot - 1); // the left partition will be sorted
+    Quick(pivot + 1, sup);// the right partition will be sorted    
+}
+
+
+
+int SortNumbers::Partition(int inf, int sup){
+    int left, right, pivot, aux;
+
+    pivot = table[inf]; // always choosing the first member of the current table
+    left  = inf;
+    right = sup;
+    while(left < right) {
+        while(left < sup && table[left] <= pivot) /*advancing while the number is smaller than the pivot
+                                                   and the left marker is smaller than the sup index (in case
+                                                   all the numbers are smaller than the pivot)*/         
+            left++;
+
+        while(table[right] > pivot) //there's no need to check if right > inf
+            right--;                //because the pivot is the first number in the current partition
+
+        if(left < right) //that means the numbers are not in the correct partition, then they must be swaped
+            Swap(left,right);
+        
+    }
+
+    //At the end of this process, there's one last swap to go: 
+    //put the pivot in its correct position.
+
+    Swap(inf,right);
+
+    return right; //this will be the new index to the pivot
+
+}
 /* the algorithm will go through the entire array and by incrementing the index will sort the numbers from
 the beggining until this index */
 

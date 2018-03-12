@@ -53,10 +53,22 @@ int main(int argc, char* argv[]) {
         sortNumbers.InsertionSort();
     }else if(command ==  "-s")
         sortNumbers.SelectionSort();
+    else if(command == "-q")
+        sortNumbers.QuickSort();
     else
         PrintWrong();
-
-    std::cout << "After the sorting by " << (command == "-i"? "Insertion ":"Selection " )<< "Sort:" << std::endl;
+    switch(command.at(1)){
+        case 'i':
+            command = "Insertion";
+            break;
+        case 'q':
+            command = "Quick";
+            break;
+        case 's':
+            command = "Selection";
+            break;
+    }    
+    std::cout << "After the sorting by " << command << " Sort:" << std::endl;
     sortNumbers.PrintTable();
     sortNumbers.ClearTable();
 

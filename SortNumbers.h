@@ -14,11 +14,14 @@ private:
     int Swap(int, int);
     void PrintError();
     int StepByStep(int);
+    void Quick(int,int);
+    int Partition(int, int);   
 
 
 public:
     SortNumbers();
     int SelectionSort();
+    int QuickSort();
     int InsertionSort();
     int RandomTable(int);
     void SetTable(int*,int);
