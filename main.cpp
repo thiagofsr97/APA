@@ -55,6 +55,8 @@ int main(int argc, char* argv[]) {
         sortNumbers.SelectionSort();
     else if(command == "-q")
         sortNumbers.QuickSort();
+    else if(command == "-m")
+        sortNumbers.MergeSort();
     else
         PrintWrong();
     switch(command.at(1)){
@@ -67,6 +69,8 @@ int main(int argc, char* argv[]) {
         case 's':
             command = "Selection";
             break;
+        case 'm':
+            command = "Merge";
     }    
     std::cout << "After the sorting by " << command << " Sort:" << std::endl;
     sortNumbers.PrintTable();
