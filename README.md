@@ -1,5 +1,5 @@
 # APA
-APA activity. Implementation of sorting methods: Selection Sort, Insertion Sort, Quick Sort and Merge Sort.
+APA activity. Implementation of sorting methods: Selection Sort, Insertion Sort, Quick Sort, Merge Sort and Heap Sort.
 
 # How to use it!
 
@@ -9,7 +9,7 @@ Go straight to the root of the project using the terminal and enter the command 
   
 - The parameters must be chosen as it follows:
   - 1st: "-sort".
-  - 2nd: "-s", "-i", "-q" or "-m" indicating Selection Sort, Insertion Sort, Quick Sort or Merge Sort, respectively.
+  - 2nd: "-s", "-i", "-q", "-m" or "-h" indicating Selection Sort, Insertion Sort, Quick Sort, Merge Sort or HeapSort, respectively.
   - 3rd: "-r", "-c" or "-f" indicating Random Selection, Chosen Selection or Reading From File Selection of numbers.
   - 4th(Optional): "Integer Number" indicating how many numbers you want to sort. In case you are reading from file ("-f" argument), the number of numbers inputed must be at the beginning of it.
   
