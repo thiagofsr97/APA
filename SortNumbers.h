@@ -26,6 +26,7 @@ class SortNumbers
     int MergeSort();
     int QuickSort();
     int InsertionSort();
+    int HeapSort();
     int RandomTable(int);
     void SetTable(int *, int);
     void ClearTable();

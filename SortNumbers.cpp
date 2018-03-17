@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include "SortNumbers.h"
+#include "Heap.h"
 
 SortNumbers::SortNumbers()
 {
@@ -148,6 +149,7 @@ void SortNumbers::Merge(int leftInit, int center, int rightEnd)
     // in the copying process (being decremented).
     for (int i = 0; i < partitionSize; i++, rightEnd--)
         table[rightEnd] = auxTable[rightEnd];
+        
 }
 
 //Recursive function that will be dividing the table into partitions until it gets to 1 element
@@ -279,4 +281,18 @@ int SortNumbers::StepByStep(int count)
     }
     std::cout << std::endl;
     return count + 1;
+}
+
+
+int SortNumbers::HeapSort() {
+    if(size == 0){
+        PrintError();
+        return -1;
+    }
+
+    Heap heap(size,table);
+    heap.Sort();
+    std::copy(heap.GetHeap(),heap.GetHeap() + heap.GetSize(),table);
+    heap.ClearHeap();
+    return 0;
 }

@@ -1,7 +1,7 @@
 CC=g++
 CFLAGS=-I.
-DEPS = SortNumbers.h
-OBJ = SortNumbers.o main.o 
+DEPS = SortNumbers.h Heap.h
+OBJ = SortNumbers.o Heap.o main.o 
 
 %.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)

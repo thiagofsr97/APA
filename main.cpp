@@ -29,11 +29,12 @@ int main(int argc, char* argv[]) {
         }else{
             command = argv[4];
             size = atoi(command.c_str());
+            std::cout << "Choose your " << size << " numbers: \n" << std::endl;
 
         }
         int i = 0;
         int *array = new int[size];
-        std::cout << "Choose your " << size << " numbers: \n" << std::endl;
+
         int count = size;
         while((count--)){
             std::cin >> aux;
@@ -45,7 +46,7 @@ int main(int argc, char* argv[]) {
 
     }
 
-    std::cout << "Before the sorting: " << std::endl;
+    std::cout << "Before the sorting: \n\n";
     sortNumbers.PrintTable();
 
     command = argv[2];
@@ -57,6 +58,10 @@ int main(int argc, char* argv[]) {
         sortNumbers.QuickSort();
     else if(command == "-m")
         sortNumbers.MergeSort();
+    else if(command == "-h"){
+        sortNumbers.HeapSort();
+    }
+
     else
         PrintWrong();
     switch(command.at(1)){
@@ -71,8 +76,12 @@ int main(int argc, char* argv[]) {
             break;
         case 'm':
             command = "Merge";
+            break;
+        case 'h':
+            command = "Heap";
+            break;
     }    
-    std::cout << "After the sorting by " << command << " Sort:" << std::endl;
+    std::cout << " \n\nAfter the sorting by " << command << " Sort: \n\n";
     sortNumbers.PrintTable();
     sortNumbers.ClearTable();
 
