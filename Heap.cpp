@@ -5,15 +5,24 @@
 #include <cstdio>
 #include <algorithm>
 #include "Heap.h"
+#include <iostream>
 
 #define CMP(a,b) ((a) > (b))
 
-Heap::Heap(int size, const int *table) {
+Heap::Heap(int size, const int *table,HeapLabel label) {
     this->heapTable = new int[size];
     std::copy(table,table + size,this->heapTable);
     this->size = size;
     this->length = size;
+    isMaxHeap = label;
 
+}
+
+Heap::Heap(int size,HeapLabel label){
+    this->heapTable = new int[size];
+    this->size = 0;
+    this->length = size;
+    isMaxHeap = label;
 }
 
 void Heap::Swap(int a, int b) {
@@ -24,7 +33,11 @@ void Heap::Swap(int a, int b) {
 
 }
 
-int Heap::GetParent(int i) { return IsEmpty()?-1:(i/2)-1;}
+int Heap::GetParent(int i) { 
+    if(IsEmpty())
+        return -1;
+  return (i%2 == 0)? (i/2)-1:(i/2);
+}
 
 int Heap::GetLeftChild(int i) {return IsEmpty()? (-1):(2*(i+1))-1;}
 
@@ -38,31 +51,15 @@ int Heap::GetSize() {return this->size;}
 
 int Heap::GetLenght() { return this->length;}
 
-void Heap::Heapify(Heap::HeapLabel heap, int node) {
-    if(size == 0)
-        return;
 
-    switch(heap){
-        case MAX:
-            HeapifyIt(true,node);
-            break;
-        case MIN:
-            HeapifyIt(false,node);
-            break;
-    }
-
-
-
-}
-
-void Heap::HeapifyIt(bool maxHeapify,int node) {
+void Heap::Heapify(int node) {
 
     int left, right, aux;
 
     left = GetLeftChild(node);
     right = GetRightChild(node);
 
-    if(maxHeapify ){
+    if(isMaxHeap == MAX){
         if(left < size && CMP(heapTable[left],heapTable[node]))
             aux = left;
         else
@@ -82,28 +79,69 @@ void Heap::HeapifyIt(bool maxHeapify,int node) {
 
     if(aux != node) {
         Swap(aux, node);
-        HeapifyIt(maxHeapify,aux);
+        Heapify(aux);
     }
 
 }
 
-void Heap::BuildHeapfied(Heap::HeapLabel heap) {
+void Heap::BuildHeapfied() {
 
     if(GetSize() == 0) return;
 
     for(int i = (GetSize()/2) - 1; i>=0;i--)
-        Heapify(heap,i);
+        Heapify(i);
+}
+
+int Heap::Insert(int element){
+    if(IsFull())
+        return -1;
+    heapTable[size++] = element;
+    int current,parent;
+    current = size-1;
+    if(isMaxHeap == MAX){
+        while( (parent = GetParent(current)) >-1 && CMP(heapTable[current],heapTable[parent])){
+        
+            Swap(current,parent);
+            current = parent; 
+            
+
+        }
+    }else{
+         while( (parent = GetParent(current)) >= 0 && CMP(heapTable[parent],heapTable[current])){
+            Swap(current,parent);
+            current = parent; 
+        }
+    }    
+    return 0;
+    
+}
+
+int Heap::ExtractTop(bool *sucess){
+    if(IsEmpty()){
+        if(sucess != nullptr)
+            *sucess = false;
+        return -1;
+    }
+    if(sucess != nullptr)
+        *sucess = true;
+    int top = heapTable[0];
+    Swap(0,size - 1);
+    size--;
+    Heapify(0);
+    
+    return top;
+
 }
 
 int Heap::Sort() {
     if(size == 0)
         return -1;
-    BuildHeapfied(MAX);
+    BuildHeapfied();
     for(int i = GetSize()-1;i > 0;i--)
     {
         Swap(0,i);
         size--;
-        Heapify(MAX,0);
+        Heapify(0);
 
     }
     size = length;

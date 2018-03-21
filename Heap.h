@@ -5,18 +5,20 @@
 #ifndef APA_HEAP_H
 #define APA_HEAP_H
 
+enum HeapLabel{MAX ,MIN};
 
 class Heap {
 private:
     int *heapTable;
     int size;
     int length;
-    void HeapifyIt(bool,int);
     void Swap(int, int);
-public:
-    Heap(int,const int*);
-    enum HeapLabel{MAX ,MIN};
-    void Heapify(HeapLabel ,int);
+    HeapLabel isMaxHeap;
+public:    
+    
+    Heap(int,const int*,HeapLabel);
+    Heap(int,HeapLabel);
+    void Heapify(int);
     int GetParent(int);
     int GetLeftChild(int);
     int GetRightChild(int);
@@ -24,9 +26,11 @@ public:
     bool IsFull();
     int GetSize();
     int GetLenght();
-    void BuildHeapfied(HeapLabel);
+    void BuildHeapfied();
     int Sort();
     const int* GetHeap();
+    int Insert(int);
+    int ExtractTop(bool*);
     void ClearHeap();
 };
 

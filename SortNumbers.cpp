@@ -289,10 +289,13 @@ int SortNumbers::HeapSort() {
         PrintError();
         return -1;
     }
+    Heap heap(size,MAX);
+    for(int i = 0; i<size;i++)
+        heap.Insert(table[i]);
 
-    Heap heap(size,table);
-    heap.Sort();
-    std::copy(heap.GetHeap(),heap.GetHeap() + heap.GetSize(),table);
+    for(int i = size -1; i>=0;i--){
+        table[i] = heap.ExtractTop(nullptr);
+    }
     heap.ClearHeap();
     return 0;
 }
