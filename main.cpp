@@ -9,6 +9,7 @@ void PrintWrong(){
 int main(int argc, char* argv[]) {
     SortNumbers sortNumbers;
     std::string command;
+    int output;
     if(argc < 4) {
         PrintWrong();
     }
@@ -51,16 +52,20 @@ int main(int argc, char* argv[]) {
 
     command = argv[2];
     if(command == "-i"){
-        sortNumbers.InsertionSort();
+        output = sortNumbers.InsertionSort();
     }else if(command ==  "-s")
-        sortNumbers.SelectionSort();
+        output = sortNumbers.SelectionSort();
     else if(command == "-q")
-        sortNumbers.QuickSort();
+        output = sortNumbers.QuickSort();
     else if(command == "-m")
-        sortNumbers.MergeSort();
+        output = sortNumbers.MergeSort();
     else if(command == "-h"){
-        sortNumbers.HeapSort();
+        output = sortNumbers.HeapSort();
     }
+    else if(command == "-c")
+        output = sortNumbers.CountingSort();
+    else if(command == "-r")
+        output = sortNumbers.RadixSort();
 
     else
         PrintWrong();
@@ -80,9 +85,18 @@ int main(int argc, char* argv[]) {
         case 'h':
             command = "Heap";
             break;
-    }    
-    std::cout << " \n\nAfter the sorting by " << command << " Sort: \n\n";
-    sortNumbers.PrintTable();
+        case 'c':
+            command = "Counting";
+            break;
+        case 'r':
+            command = "Radix";
+            break;
+    }
+    if(output== 0){
+        std::cout << " \n\nAfter the sorting by " << command << " Sort: \n\n";
+        sortNumbers.PrintTable();
+    }
+
     sortNumbers.ClearTable();
 
 

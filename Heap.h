@@ -4,6 +4,7 @@
 
 #ifndef APA_HEAP_H
 #define APA_HEAP_H
+#define CMP(a,b) ((a) > (b))
 
 enum HeapLabel{MAX ,MIN};
 

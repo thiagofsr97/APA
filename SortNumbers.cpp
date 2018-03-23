@@ -5,6 +5,9 @@
 #include <iostream>
 #include "SortNumbers.h"
 #include "Heap.h"
+#include <algorithm>
+#include <vector>
+#include <iterator>
 
 SortNumbers::SortNumbers()
 {
@@ -13,13 +16,18 @@ SortNumbers::SortNumbers()
     auxTable = nullptr;
 }
 
+
+bool SortNumbers::IsEmpty() {
+    return size == 0? true:false;
+}
+
 /* the algorithm will sort the numbers by selecting the greatest and putting in your correct position,
      which means in the last positions. */
 /* the same can be done by selecting the smallest number */
 
 int SortNumbers::SelectionSort()
 {
-    if (size == 0)
+    if (IsEmpty())
     {
         PrintError();
         return -1;
@@ -38,7 +46,7 @@ int SortNumbers::SelectionSort()
         // z = StepByStep(z);
 
         // loops starts at index 1, avoiding one comparison of a number with itself.
-        /* here the greatest number is searched and then assigned to 
+        /* here the greatest number is searched and then assigned to
         the current j index from the outter loop */
         for (int i = 1; i <= j; ++i)
             if (table[i] > greatest)
@@ -52,16 +60,17 @@ int SortNumbers::SelectionSort()
 
     return 0;
 }
-
 int SortNumbers::QuickSort()
 { // this function will be used as a trigger to the recursive quick sort function
-    if (size == 0)
+    if (IsEmpty())
     {
         PrintError();
         return -1;
     }
     Quick(0, size - 1);
+    return 0;
 }
+
 void SortNumbers::Quick(int inf, int sup)
 {
     if (!(inf < sup)) // the partition is already sorted, nothing must be done
@@ -110,7 +119,7 @@ int SortNumbers::MergeSort(){
     MSort(0,size - 1);
 
     delete auxTable; // deallocating space already used.
-
+    return 0;
 
 }
 
@@ -149,7 +158,7 @@ void SortNumbers::Merge(int leftInit, int center, int rightEnd)
     // in the copying process (being decremented).
     for (int i = 0; i < partitionSize; i++, rightEnd--)
         table[rightEnd] = auxTable[rightEnd];
-        
+
 }
 
 //Recursive function that will be dividing the table into partitions until it gets to 1 element
@@ -159,12 +168,12 @@ void SortNumbers::MSort(int leftInit, int rightEnd)
     if (leftInit >= rightEnd) //base case, there's only one element in the partition, it's already sorted.
         return;
     int center = (leftInit + rightEnd) / 2; // the center will always be floor of the division (no rounding)
-    
+
     MSort(leftInit, center);
     MSort(center + 1, rightEnd);
-   
+
     Merge(leftInit, center, rightEnd);
-    
+
 }
 
 /* the algorithm will go through the entire array and by incrementing the index will sort the numbers from
@@ -173,7 +182,7 @@ the beggining until this index */
 int SortNumbers::InsertionSort()
 {
 
-    if (size == 0)
+    if (IsEmpty())
     {
         PrintError();
         return -1;
@@ -192,8 +201,8 @@ int SortNumbers::InsertionSort()
         {
             /* at each interaction, there will be two parts in the array,
              the sorted one (left side) and the unsorted one (right side) */
-            /*this means that if a number in the position i - 1 is not greater 
-            than the number in the position i, then the loop can break, once the same will happen with 
+            /*this means that if a number in the position i - 1 is not greater
+            than the number in the position i, then the loop can break, once the same will happen with
             the left numbers in the sorted side. */
 
             if (aux < table[i - 1])
@@ -260,7 +269,7 @@ void SortNumbers::PrintError()
 
 void SortNumbers::PrintTable()
 {
-    if (size == 0)
+    if (IsEmpty())
         std::cout << "The table is empty!" << std::endl;
 
     else
@@ -268,8 +277,9 @@ void SortNumbers::PrintTable()
         for (int i = 0; i < size; ++i)
             std::cout << table[i] << " ";
     }
-    std::cout << std::endl;
+    std::cout << "\n\n";
 }
+
 
 /* Function used to debug, showing the processing of sorting step by step*/
 int SortNumbers::StepByStep(int count)
@@ -283,9 +293,8 @@ int SortNumbers::StepByStep(int count)
     return count + 1;
 }
 
-
 int SortNumbers::HeapSort() {
-    if(size == 0){
+    if(IsEmpty()){
         PrintError();
         return -1;
     }
@@ -298,4 +307,91 @@ int SortNumbers::HeapSort() {
     }
     heap.ClearHeap();
     return 0;
+}
+
+int SortNumbers::CountingSort(){
+     if(IsEmpty()){
+        PrintError();
+        return -1;
+    }
+
+    //Additional loop to check if there's negative number in the table, which will not work
+    //with the method.
+    for(int i = 0; i<size;i++){
+        if(table[i]<0){
+            std::cout << "This method doesn't work with negative numbers" << std::endl;
+            return -1;
+        }
+    }
+
+    int biggestElement = Greatest(table,size);
+    auxTable = new int[biggestElement + 1]();
+
+    int sortedTable[size];
+
+    // Calculating the frequency of repetetion of the numbers in the array
+    for(int i=0; i<size;i++){
+        auxTable[table[i]]++;
+    }
+
+
+    //Making acumulative calculation
+    for(int i = 1; i<biggestElement+1;i++){
+        auxTable[i]+=auxTable[i-1];
+    }
+
+    for(int i = size;i>=0;i--){
+        sortedTable[auxTable[table[i]]-1] = table[i];
+        auxTable[table[i]]--;
+    }
+
+    std::copy(sortedTable,sortedTable +size,table);
+
+    delete []auxTable;
+    return 0;
+
+}
+
+int SortNumbers::RadixSort(){
+    if(IsEmpty()){
+        PrintError();
+        return -1;
+    }
+
+    //Additional loop to check if there's negative number in the table, which will not work
+    //with the method.
+    for(int i = 0; i<size;i++){
+        if(table[i]<0){
+            std::cout << "This method doesn't work with negative numbers" << std::endl;
+            return -1;
+        }
+    }
+
+    int greatest = Greatest(table,size);
+    for(int exp = 1;(greatest/exp) > 0;exp*=10){
+        auxTable = new int[10]();
+        int *sortedArray = new int[size]();
+
+        for(int i = 0; i<size;i++){
+            auxTable[(table[i]/exp)%10]++;
+        }
+
+        for(int i = 1; i<10;i++){
+            auxTable[i]+=auxTable[i-1];
+        }
+
+        for(int i = size -1;i>=0;i--){
+            sortedArray[auxTable[(table[i]/exp)%10]-1] = table[i];
+            auxTable[(table[i]/exp)%10]--;
+        }
+
+        std::copy(sortedArray,sortedArray + size,table);
+
+        delete[]sortedArray;
+        delete[]auxTable;
+
+    }
+
+    return 0;
+
 }

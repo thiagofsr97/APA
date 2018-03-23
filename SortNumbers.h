@@ -4,6 +4,7 @@
 
 #ifndef APA_SORTNUMBERS_H
 #define APA_SORTNUMBERS_H
+#define Greatest(arr,size) *(std::max_element(arr,arr + size))
 
 class SortNumbers
 {
@@ -19,6 +20,7 @@ class SortNumbers
     int Partition(int, int);
     void Merge(int, int, int);
     void MSort(int, int);
+    bool IsEmpty();
 
   public:
     SortNumbers();
@@ -27,6 +29,8 @@ class SortNumbers
     int QuickSort();
     int InsertionSort();
     int HeapSort();
+    int CountingSort();
+    int RadixSort();
     int RandomTable(int);
     void SetTable(int *, int);
     void ClearTable();

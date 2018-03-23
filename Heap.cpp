@@ -7,7 +7,7 @@
 #include "Heap.h"
 #include <iostream>
 
-#define CMP(a,b) ((a) > (b))
+
 
 Heap::Heap(int size, const int *table,HeapLabel label) {
     this->heapTable = new int[size];
