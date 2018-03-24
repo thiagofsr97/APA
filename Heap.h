@@ -28,7 +28,6 @@ public:
     int GetSize();
     int GetLenght();
     void BuildHeapfied();
-    int Sort();
     const int* GetHeap();
     int Insert(int);
     int ExtractTop(bool*);

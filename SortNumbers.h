@@ -1,10 +1,18 @@
-//
-// Created by thiagofsr on 05/03/18.
-//
+ 
+/** 
+ *  @file    SortNumbers.h
+ *  @author  Thiago Filipe Soares da Rocha
+ *  @date    03/05/2018  
+ *  @version 1.0 
+ *  
+ *  @brief Header File of SortNumbers class.
+ *
+ */
 
 #ifndef APA_SORTNUMBERS_H
 #define APA_SORTNUMBERS_H
 #define Greatest(arr,size) *(std::max_element(arr,arr + size))
+#define PrintError() std::cout << "Invalid table, please generate a new one." << std::endl
 
 class SortNumbers
 {
@@ -13,8 +21,7 @@ class SortNumbers
     int *table;
     int *auxTable;
     int size;
-    int Swap(int, int);
-    void PrintError();
+    void Swap(int, int);
     int StepByStep(int);
     void Quick(int, int);
     int Partition(int, int);
@@ -31,7 +38,7 @@ class SortNumbers
     int HeapSort();
     int CountingSort();
     int RadixSort();
-    int RandomTable(int);
+    void RandomTable(int);
     void SetTable(int *, int);
     void ClearTable();
     void PrintTable();

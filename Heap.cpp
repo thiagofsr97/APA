@@ -132,23 +132,6 @@ int Heap::ExtractTop(bool *sucess){
     return top;
 
 }
-
-int Heap::Sort() {
-    if(size == 0)
-        return -1;
-    BuildHeapfied();
-    for(int i = GetSize()-1;i > 0;i--)
-    {
-        Swap(0,i);
-        size--;
-        Heapify(0);
-
-    }
-    size = length;
-    return 0;
-}
-
-
 const int *Heap::GetHeap() {
 
     return this->heapTable;
