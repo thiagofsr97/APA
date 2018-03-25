@@ -299,7 +299,7 @@ int SortNumbers::HeapSort() {
     for(int i = size -1; i>=0;i--){
         table[i] = heap.ExtractTop(nullptr);
     }
-    heap.ClearHeap();
+    //heap.ClearHeap();
     return 0;
 }
 
